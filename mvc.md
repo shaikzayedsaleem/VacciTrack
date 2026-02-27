@@ -1,26 +1,23 @@
-# Model-View-Controller (MVC) in Web Applications
+# Model-View-Controller (MVC) for Swing-based AI Applications
 
-The MVC pattern in web development separates the application into three main components to handle HTTP requests and generate responses efficiently. Here is how it translates to a web stack (e.g., Python/Flask or Node.js).
+## 1. The Model (Data & API Logic)
+The Model handles the formulation of the prompt, the network request to the AI service, and parsing the response.
+* **Entities:** POJOs like `PromptRequest.java` and `AIResponse.java`.
+* **The AI Client:** A dedicated class (e.g., `GenAIClient.java`) that uses `java.net.http.HttpClient` or `HttpURLConnection` to send the JSON payload to your AI backend or a third-party API (like OpenAI/Google).
+* **Responsibility:** Strictly handles formatting the text, adding API keys to the headers, executing the HTTP POST request, and extracting the generated text from the JSON response.
 
-## 1. The Model (Data & Business Logic)
-The Model manages the behavior and data of the application domain, responds to requests for information about its state, and responds to instructions to change state.
-* **Role:** Connects to the database (MySQL, PostgreSQL, or even Google Sheets APIs).
-* **Implementation:** Often uses an ORM (like SQLAlchemy in Python). Instead of raw SQL, you define classes (e.g., `class User(db.Model):`).
-* **Responsibility:** Data validation, database queries, and executing core business rules (like running an AI summarization script before saving text).
+## 2. The View (Java Swing Interface)
+The View is built entirely using `javax.swing.*` and `java.awt.*` components. 
+* **Input Components:** `JTextArea` wrapped in a `JScrollPane` for the user to paste large blocks of text.
+* **Action Components:** `JButton` (e.g., "Summarize Text") and a `JProgressBar` (set to indeterminate) to show the user that the AI is "thinking".
+* **Output Components:** A read-only `JTextArea` to display the AI's generated response.
+* **Responsibility:** Displaying the GUI and capturing user input. It knows nothing about APIs or HTTP requests.
 
-## 2. The View (The Frontend Interface)
-The View renders the contents of a model. It specifies exactly how the model data should be presented to the user in the browser.
-* **Role:** The UI that the user interacts with.
-* **Implementation:** HTML, CSS, and JavaScript. 
-* **Server-Side Rendering (SSR):** The server generates the HTML dynamically using template engines (like Jinja2) and sends the finished page to the browser.
-* **Client-Side Rendering (CSR):** The browser loads a static HTML/JS file, and the JavaScript makes background API calls to fetch raw data (JSON) to populate the screen.
-
-## 3. The Controller (The Routing Engine)
-The Controller interprets the mouse and keyboard inputs from the user, informing the model and/or the view to change as appropriate.
-* **Role:** The traffic cop. It receives the HTTP Request from the user's browser, decides what needs to happen, and sends back an HTTP Response.
-* **Implementation:** Route handlers or API endpoints.
-* **Action Flow (Example: Submitting a form):**
-    1. **View:** User fills out a form on the website and hits "Submit" (sends a POST request).
-    2. **Controller:** The route (e.g., `@app.route('/submit', methods=['POST'])`) catches the request and extracts the form data.
-    3. **Controller -> Model:** The controller passes the data to the Model to save it to the database.
-    4. **Controller -> View:** Once saved, the controller returns a response—either rendering a "Success" HTML page or sending a `200 OK` JSON response back to the frontend to update the UI.
+## 3. The Controller (Multithreaded Action Logic)
+The Controller bridges the View and the Model, but it **must** use multithreading to keep the UI responsive.
+* **Implementation:** An `ActionListener` attached to the Generate button that launches a `javax.swing.SwingWorker`.
+* **Action Flow:**
+    1. **View:** User clicks "Generate".
+    2. **Controller (EDT):** The ActionListener disables the "Generate" button and makes the `JProgressBar` visible so the user knows it's loading.
+    3. **Controller (Background Thread):** The `SwingWorker.doInBackground()` method takes the text, passes it to the Model (`GenAIClient`), and waits for the network response.
+    4. **Controller (EDT via `done()`):** Once the AI responds, `SwingWorker.done()` updates the output `JTextArea`, hides the progress bar, and re-enables the button.
