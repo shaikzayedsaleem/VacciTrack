@@ -1,0 +1,6 @@
+"Act as a Senior Java Developer. Generate a Java Swing class for [Specific Tab, e.g., InventoryManagement].
+Requirements: > 1. Use GridBagLayout for forms to ensure responsiveness.
+2. Implement a DefaultTableModel for the JTable to display database results.
+3. Include a separate method for database connection using DriverManager.
+4. Ensure all SQL queries use PreparedStatement to prevent injection.
+5. Do not use any external CSS-like libraries; stick to standard javax.swing and java.awt."
