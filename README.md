@@ -1,15 +1,15 @@
-# 💉 VaxDrive – Vaccination Drive Management System
+# 💉 VacciTrack – Vaccination Drive Management System
 
-> **Mullathim IbK College of Engineering and Technology**  
-> Department of Computer Science and Engineering  
-> MCA Industry Ready Program (IA-407) | Academic Year 2023–24 – IV Semester  
+> **Muffakham Jah College of Engineering and Technology**  
+> Department of Computer Science and Artificial Engineering  
+> MJ Industry Ready Program | Academic Year 2025–26 – IV Semester  
 > Java Programming Module | **Week 5 Final Project**
 
 ---
 
 ## 📌 Project Overview
 
-VaxDrive is a **fully functional, professional-grade Vaccination Drive Management System** built with:
+VacciTrack is a **fully functional, professional-grade Vaccination Drive Management System** built with:
 - **Java Swing / AWT** (no HTML elements)
 - **JDBC** (MySQL Connector/J)
 - **MySQL 8.x** database
@@ -287,4 +287,4 @@ vaccines ──┐           ▼                   ▼
 
 ---
 
-*VaxDrive © 2024 | MCA Industry Ready Program*
+*VacciTrack © 2026 | MJ Industry Ready Program*
