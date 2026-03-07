@@ -91,12 +91,12 @@ public class LoginFrame extends JFrame {
         leftPanel.add(appSub, gc);
 
         gc.gridy = 3; gc.insets = new Insets(20, 20, 0, 20);
-        JLabel inst = UITheme.label("Mullathim IbK College of Engineering", UITheme.FONT_SMALL, UITheme.TEXT_LIGHT);
+        JLabel inst = UITheme.label("Muffakham Jah College of Engineering & Technology", UITheme.FONT_SMALL, UITheme.TEXT_LIGHT);
         inst.setHorizontalAlignment(SwingConstants.CENTER);
         leftPanel.add(inst, gc);
 
         gc.gridy = 4;
-        JLabel inst2 = UITheme.label("MCA Industry Ready Program", UITheme.FONT_SMALL, UITheme.TEXT_LIGHT);
+        JLabel inst2 = UITheme.label("MJ Industry Ready Program", UITheme.FONT_SMALL, UITheme.TEXT_LIGHT);
         inst2.setHorizontalAlignment(SwingConstants.CENTER);
         leftPanel.add(inst2, gc);
 
